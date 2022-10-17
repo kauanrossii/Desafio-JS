@@ -37,6 +37,7 @@ form input {
     border: none;
     background-color: #2196F3;
     color: #fff;
+    width: 100%;
 }
 
 #btn:hover {

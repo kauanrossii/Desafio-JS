@@ -19,17 +19,44 @@
     <header>
         <nav>
             <ul>
-                <li class="item"><a href="#"><span class="material-symbols-outlined">group_add</span>Clientes</a></li>
-                <li class="item"><a href="#"><span class="material-symbols-outlined">redeem</span>Produtos</a></li>
-                <li class="item"><a href="#"><span class="material-symbols-outlined">shopping_cart</span>Pedidos</a></li>
+                <li class="item clients"><a href="#"><span class="material-symbols-outlined">group_add</span>Clientes</a></li>
+                <li class="item products"><a href="#"><span class="material-symbols-outlined">redeem</span>Produtos</a></li>
+                <li class="item orders"><a href="#"><span class="material-symbols-outlined">shopping_cart</span>Pedidos</a></li>
             </ul>
     </header>
     <main>
+        <section class="div">
+            <h1>Clientes</h1>
+            <form>
+                <label for="codeClient">Código</label>
+                <input type="text" name="codeClient" id="codeClient">
+                <label for="nameClient">Nome</label>
+                <input type="text" name="nameClient" id="nameClient">
+                <label for="signupDate">Data Cadastro</label>
+                <input type="date" name="signupDate" id="signupDate">
+                <div class="row">
+                    <div class="nextprev-div">
+                        <input type="button" class="btn" value="<">
+                        <input type="button" class="btn" value=">">
+                    </div>
+                    
+                    <div class="newsave-div">
+                        <input type="button" class="btn" value="Novo">
+                        <input type="button" value="Salvar" class="btn">
+                    </div>
+                </div>
 
+            </form>
+
+        </section>
+        <section class="section-prod">
+            <p>hello, world!</p>
+        </section>
     </main>
     <footer>
 
     </footer>
+    <script src="script/scipt.js"></script>
 </body>
 
 </html>

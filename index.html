@@ -14,12 +14,12 @@
 
     <main>
         <div class="signin-container">
-            <form method="post">
+            <form method="post" id="form" action="panel/panel.html">
                 <label for="name">Usuário</label>
                 <input type="text" id="name">
                 <label for="password">Senha</label>
                 <input type="password" id="password">
-                <a href="panel/panel.html"><input type="button" value="ENTRAR" id="btn"></a>
+                <button type="submit" id="btn">ENTRAR</button>
             </form>
         </div>
     </main>
@@ -27,5 +27,6 @@
     <footer>
 
     </footer>
+    <script src="script/main.js"></script>
 </body>
 </html>
