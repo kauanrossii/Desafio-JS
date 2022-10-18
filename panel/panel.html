@@ -25,32 +25,91 @@
             </ul>
     </header>
     <main>
-        <section class="div">
-            <h1>Clientes</h1>
+        <section class="options-container clients-container">
+            <h1 class="title">Clientes</h1>
+            <button class="close-btn cursor">X</button>
             <form>
-                <label for="codeClient">Código</label>
-                <input type="text" name="codeClient" id="codeClient">
-                <label for="nameClient">Nome</label>
-                <input type="text" name="nameClient" id="nameClient">
-                <label for="signupDate">Data Cadastro</label>
-                <input type="date" name="signupDate" id="signupDate">
-                <div class="row">
-                    <div class="nextprev-div">
-                        <input type="button" class="btn" value="<">
-                        <input type="button" class="btn" value=">">
+                <label for="clients-code">Código</label>
+                <input type="text" name="clients-code" class="input clients-code" id="clients-code">
+                <label for="clients-name">Nome</label>
+                <input type="text" name="clients-name" class="input clients-name" id="clients-name">
+                <label for="date-signup">Data Cadastro</label>
+                <input type="text" name="date-signup" class="input date-signup" id="date-signup">
+            </form>
+            <div class="row">
+                <div class="btns-div">
+                    <input type="button" class="prev-btn nav-btn spacing cursor" value="<">
+                    <input type="button" class="next-btn nav-btn spacing cursor" value=">">
+                </div>
+                <div class="btns-div">
+                    <input type="button" value="Novo" class="btn new-btn spacing cursor">
+                    <input type="button" value="Salvar" class="btn save-btn spacing cursor">
+                </div>
+            </div>
+        </section>
+        <section class="options-container products-container">
+            <h1 class="title">Produtos</h1>
+            <button class="close-btn cursor">X</button>
+            <form>
+                <label for="products-code">Código</label>
+                <input type="text" name="products-code" class="input products-code" id="products-code">
+                <label for="products-description">Descrição</label>
+                <input type="text" name="products-description" id="products-description" class="input products-description">
+                <label for="products-price">Preço</label>
+                <input type="text" name="products-price" id="products-price" class="input products-price">
+                <label for="proucts-quantity">Quantidade</label>
+                <input type="text" name="products-quantity" id="products-quantity" class="input products-quantity">
+            </form>
+            <div class="row">
+                <div class="btns-div">
+                    <input type="button" class="prev-btn nav-btn spacing cursor" value="<">
+                    <input type="button" class="next-btn nav-btn spacing cursor" value=">">
+                </div>
+                <div class="btns-div">
+                    <input type="button" value="Novo" class="btn new-btn spacing cursor">
+                    <input type="button" value="Salvar" class="btn save-btn spacing cursor">
+                </div>
+        </section>
+        <section class="orders-container options-container">
+            <h1 class="title">Pedidos</h1>
+            <button class="close-btn cursor">X</button>
+            <form>
+                <label for="clients-code">Código do Cliente</label>
+                <input type="text" name="clients-code" id="clients-code" class="input clients-code">
+                <label for="clients-name">Cliente</label>
+                <input type="text" name="clients-name" id="clients-name" class="input clients-name">
+            </form>
+            <div class="find-product-container">
+                <h2 class="subtitle">Localizar produto</h2>
+                <div class="inputs-container-products">
+                    <input type="text" name="" class="code">
+                    <input type="text" name="" disabled class="description">
+                    <input type="text" name="" disabled class="price">
+                    <input type="text" name="" class="quantity">
+                    <input type="button" value="Lançar no pedido" class="enter-product">
+                </div>
+            </div>
+            <div class="order-list-products">
+                <h2 class="subtitle">Itens do Pedido</h2>
+                <div class="options-products-order">
+                    <div class="items">
+                        <h3>Item</h3>
                     </div>
-                    
-                    <div class="newsave-div">
-                        <input type="button" class="btn" value="Novo">
-                        <input type="button" value="Salvar" class="btn">
+                    <div class="descriptions">
+                        <h3>Descrição</h3>
+                    </div>
+                    <div class="prices">
+                        <h3>Preço</h3>
+                    </div>
+                    <div class="quantities">
+                        <h3>Qtd</h3>
+                    </div>
+                    <div class="subtotal">
+                        <h3>Sub Total</h3>
                     </div>
                 </div>
-
-            </form>
-
-        </section>
-        <section class="section-prod">
-            <p>hello, world!</p>
+            </div>
+            <div class="total-order"></div>
         </section>
     </main>
     <footer>

@@ -1,22 +1,7 @@
 const items = document.querySelectorAll('.item');
 const main = document.querySelector('main');
+const closeBtn = document.querySelectorAll('.close-btn');
 const childsMain = main.children;
-
-const secoes = [
-    {
-        secao: 'Clientes',
-        Código: '',
-        Nome: '',
-        DataCadastro: '', 
-    },
-    {
-        secao: 'Produtos',
-        Descrição: '',
-        Preço: '',
-        Quantidade: ''
-    }
-]
-
 
 items.forEach(function (e) {
     e.addEventListener('click', function () {
@@ -24,15 +9,23 @@ items.forEach(function (e) {
         removeChilds();
 
         if (e.classList.contains('clients')) {
-            createSection('Clientes');
+            openSection('clients');
         }
 
         if (e.classList.contains('products')) {
-            createSection('Produtos');
+            openSection('products');
+        }
+
+        if (e.classList.contains('orders')) {
+            openSection('orders')
         }
 
     })
 
+})
+
+closeBtn.forEach(function(e) {
+    e.addEventListener('click', removeChilds);
 })
 
 function removeChilds() {
@@ -41,34 +34,7 @@ function removeChilds() {
     }
 }
 
-function createSection(data) {
-    let section = document.createElement('section');
-    let title = document.createElement('h1')
-    title.textContent = data;
-
-    section.appendChild(title);
-
-    secoes.forEach(function(obj) {
-        if(obj.secao == data) {
-            const chavesObj = Object.keys(obj);
-            
-            // for(let chave of chavesObj) {
-            //     const label = document.createElement('label');
-            //     label.innerText = chave;
-            //     section.appendChild(label);
-            // }
-
-            for(let chave = 1; chave < chavesObj.length; chave++) {
-                const label = document.createElement('label');
-                const input = document.createElement('input');
-                input.setAttribute('type', 'text');
-                label.innerText = chavesObj[chave];
-                section.appendChild(label);
-                section.appendChild(input);
-            }
-
-        }
-    })
-
-    main.appendChild(section); 
+function openSection(containerName) {
+    const section = document.querySelector(`.${containerName}-container`);
+    section.style.display = 'flex';
 }
