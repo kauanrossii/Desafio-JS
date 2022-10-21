@@ -1,80 +1,117 @@
+import { changeClient, resetClient, newClient, saveClient } from "./clientes.js";
+import { changeProduct, resetProduct, newProduct, saveProduct} from "./produtos.js"
+import { searchClient, searchProduct, enterProduct } from "./pedidos.js";
+
 const items = document.querySelectorAll('.item');
-const main = document.querySelector('main');
-const closeBtn = document.querySelectorAll('.close-btn');
-const childsMain = main.children;
+const closeBtns = document.querySelectorAll('.close-btn');
+const navBtns = document.querySelectorAll('.nav-btn');
+const codeInput = document.querySelectorAll('.code-input');
+const changeBtns = document.querySelectorAll('.change-btn');
+
+let clientCode = 1;
+let productCode = 1;
+let pressedNewClient = 0;
+let pressedNewProduct = 0;
+
+export { clientCode, productCode };
 
 items.forEach(function (e) {
-    e.addEventListener('click', function () {
-        
-        removeChilds();
-        
+    e.addEventListener('click', () => {
+
+        closeSection();
+
         if (e.classList.contains('clients')) {
             openSection('clients');
+            // resetFieldsClients();
         }
-        
         if (e.classList.contains('products')) {
             openSection('products');
+            // resetFieldsProducts();
         }
-        
+
         if (e.classList.contains('orders')) {
-            openSection('orders')
+            openSection('orders');
+            // resetAllFields();
         }
-        
+
     })
-    
 })
 
-closeBtn.forEach(function(e) {
-    e.addEventListener('click', removeChilds);
-})
+function openSection(nameContainer) {
+    const section = document.querySelector(`.${nameContainer}-container`);
 
-let section = document.querySelector('.options-container');
+    resetClient();
+    resetProduct();
 
-function removeChilds() {
-    for(let i of childsMain) {
-        i.style.display = 'none';
+    for (let i of codeInput) {
+        i.value = 1;
     }
+
+    section.classList.add('active');
 }
 
-function openSection(containerName) {
-    section = document.querySelector(`.${containerName}-container`);
-    section.style.display = 'flex';
+function closeSection() {
+    const section = document.querySelector('.active');
+    if (section !== null) section.classList.remove('active');
 }
 
-
-
-import { clientes } from "./clientes.js";
-
-const clientsCodeInput = document.querySelector('#clients-code');
-let clientsCodeValue = 0;
-const btnsNav = section.querySelectorAll('.nav-btn');
-
-clientsCodeInput.addEventListener('focusout', (e) => {
-    clientsCodeValue = Number(clientsCodeInput.value);
-
-    printDataClients(clientsCodeValue);
-    
-})
-
-btnsNav.forEach(function(e) {
+closeBtns.forEach(function (e) {
     e.addEventListener('click', () => {
-        if(e.classList.contains('prev-btn') && clientsCodeValue > 1) {
-            clientsCodeValue--;
-        } else if(e.classList.contains('next-btn') && clientsCodeValue < clientes.length){
-            clientsCodeValue++;
-        }
-        clientsCodeInput.value = clientsCodeValue;
-        printDataClients(clientsCodeValue);
+        closeSection();
     })
 })
 
-console.log(btnsNav);
+// console.log(navBtns);
 
-function printDataClients(codeTyped) {
-    for(let code of clientes) {
-        if(code.codCliente === codeTyped) {
-            document.querySelector('#clients-name').value = code.nomeCliente;
-            document.querySelector('#date-signup').value = code.dataCadCli;
+navBtns.forEach(function (e) {
+    e.addEventListener('click', () => {
+        
+        if (e.classList.contains('next-client')) changeClient(1);
+
+        if(e.classList.contains('prev-client')) changeClient(-1);
+
+        if(e.classList.contains('next-product')) changeProduct(1);
+
+        if(e.classList.contains('prev-product')) changeProduct(-1);
+    })
+})
+
+changeBtns.forEach(function(e) {
+    e.addEventListener('click', () => {
+        if(e.classList.contains('new-client')) {
+            newClient();
+            pressedNewClient = 1;
         }
-    }
-}
+
+        if(e.classList.contains('save-client') && pressedNewClient == 1) {
+            saveClient();
+            pressedNewClient = 0;
+        }
+
+        if(e.classList.contains('new-product')) {
+            newProduct();
+            pressedNewProduct = 1;
+        }
+
+        if(e.classList.contains('save-product')) {
+            saveProduct();
+            pressedNewProduct = 0;
+        }
+    })
+})
+
+const inputCodeClient = document.querySelector('.clients-code-order');
+const inputCodeProduct = document.querySelector('.code');
+const btnEnterProduct = document.querySelector('.enter-product');
+
+inputCodeClient.addEventListener('focusout', function() {
+    searchClient(inputCodeClient.value);
+})
+
+inputCodeProduct.addEventListener('focusout', function () {
+    searchProduct(inputCodeProduct.value);
+})
+
+btnEnterProduct.addEventListener('click', () => {
+    enterProduct()
+})

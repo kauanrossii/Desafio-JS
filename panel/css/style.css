@@ -137,7 +137,7 @@ p {
     font-size: 18px;
 }
 
-.btn {
+.change-btn {
     width: 50%;
     height: 100%;
     border-radius: 5px;
@@ -233,4 +233,18 @@ p {
     width: 35%;
     font-size: 19px;
     font-weight:600;
+}
+
+.active {
+    display: flex;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+}
+
+.result {
+    display: flex;
+    flex-direction: column;
 }

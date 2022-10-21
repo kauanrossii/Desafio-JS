@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
@@ -30,7 +30,7 @@
             <button class="close-btn cursor">X</button>
             <form>
                 <label for="clients-code">Código</label>
-                <input type="text" name="clients-code" class="input clients-code" id="clients-code">
+                <input type="text" name="clients-code" class="input clients-code" disabled id="clients-code" value="1">
                 <label for="clients-name">Nome</label>
                 <input type="text" name="clients-name" class="input clients-name" id="clients-name">
                 <label for="date-signup">Data Cadastro</label>
@@ -38,12 +38,12 @@
             </form>
             <div class="row">
                 <div class="btns-div">
-                    <input type="button" class="prev-btn nav-btn spacing cursor" value="<">
-                    <input type="button" class="next-btn nav-btn spacing cursor" value=">">
+                    <input type="button" class="prev-client nav-btn spacing cursor" value="<">
+                    <input type="button" class="next-client nav-btn spacing cursor" value=">">
                 </div>
                 <div class="btns-div">
-                    <input type="button" value="Novo" class="btn new-btn spacing cursor">
-                    <input type="button" value="Salvar" class="btn save-btn spacing cursor">
+                    <input type="button" value="Novo" class="change-btn new-btn spacing cursor new-client">
+                    <input type="button" value="Salvar" class="change-btn save-btn spacing cursor save-client">
                 </div>
             </div>
         </section>
@@ -52,7 +52,7 @@
             <button class="close-btn cursor">X</button>
             <form>
                 <label for="products-code">Código</label>
-                <input type="text" name="products-code" class="input products-code" id="products-code">
+                <input type="text" name="products-code" class="input products-code code-input" disabled id="products-code">
                 <label for="products-description">Descrição</label>
                 <input type="text" name="products-description" id="products-description" class="input products-description">
                 <label for="products-price">Preço</label>
@@ -62,12 +62,12 @@
             </form>
             <div class="row">
                 <div class="btns-div">
-                    <input type="button" class="prev-btn nav-btn spacing cursor" value="<">
-                    <input type="button" class="next-btn nav-btn spacing cursor" value=">">
+                    <input type="button" class="prev-product nav-btn spacing cursor" value="<">
+                    <input type="button" class="next-product nav-btn spacing cursor" value=">">
                 </div>
                 <div class="btns-div">
-                    <input type="button" value="Novo" class="btn new-btn spacing cursor">
-                    <input type="button" value="Salvar" class="btn save-btn spacing cursor">
+                    <input type="button" value="Novo" class="change-btn new-btn new-product spacing cursor">
+                    <input type="button" value="Salvar" class="change-btn save-btn save-product spacing cursor">
                 </div>
         </section>
         <section class="orders-container options-container">
@@ -75,36 +75,36 @@
             <button class="close-btn cursor">X</button>
             <form>
                 <label for="clients-code">Código do Cliente</label>
-                <input type="text" name="clients-code" id="clients-code" class="input clients-code">
+                <input type="text" name="clients-code" id="clients-code" class="input field clients-code-order">
                 <label for="clients-name">Cliente</label>
-                <input type="text" name="clients-name" id="clients-name" class="input clients-name">
+                <input type="text" name="clients-name" id="clients-name" class="input field clients-name-order">
             </form>
             <div class="find-product-container">
                 <h2 class="subtitle">Localizar produto</h2>
                 <div class="inputs-container-products">
-                    <input type="text" name="" class="code">
-                    <input type="text" name="" disabled class="description">
-                    <input type="text" name="" disabled class="price">
-                    <input type="text" name="" class="quantity">
+                    <input type="text" name="" class="code field">
+                    <input type="text" name="" disabled class="description field">
+                    <input type="text" name="" disabled class="price field">
+                    <input type="text" name="" class="quantity field">
                     <input type="button" value="Lançar no pedido" class="enter-product">
                 </div>
             </div>
             <div class="order-list-products">
                 <h2 class="subtitle">Itens do Pedido</h2>
                 <div class="options-products-order">
-                    <div class="items">
+                    <div class="items result">
                         <h3>Item</h3>
                     </div>
-                    <div class="descriptions">
+                    <div class="descriptions result">
                         <h3>Descrição</h3>
                     </div>
-                    <div class="prices">
+                    <div class="prices result">
                         <h3>Preço</h3>
                     </div>
-                    <div class="quantities">
+                    <div class="quantities result">
                         <h3>Qtd</h3>
                     </div>
-                    <div class="subtotal">
+                    <div class="subtotal result">
                         <h3>Sub Total</h3>
                     </div>
                 </div>
