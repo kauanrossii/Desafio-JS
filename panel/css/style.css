@@ -184,6 +184,12 @@ p {
     width: 20%;
 }
 
+.subtotal-order {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .subtitle {
     font-size: 20px;
     color:#1d53c9;
@@ -247,4 +253,34 @@ p {
 .result {
     display: flex;
     flex-direction: column;
+}
+
+.total-order {
+    display: flex;
+    justify-content: flex-end;
+    height: auto;
+}
+
+.total-order-result {
+    width: 10%;
+    padding: 4px;
+    background-color: #cfcfcf;
+    color: red;   
+}
+
+.material-symbols-outlined-delete {
+    font-family: 'Material Symbols Outlined';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 20px;
+    line-height: 1;
+    color: red;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    /* -webkit-font-feature-settings: 'liga'; */
+    -webkit-font-smoothing: antialiased;
 }
