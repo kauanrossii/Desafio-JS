@@ -36,12 +36,20 @@ function searchProduct(code) {
 }
 
 function enterProduct() {
-    if (Number(inputQtyProduct.value) > quantityProductsEstoque) alert("Não há esta quantidade de produto no estoque!");
 
+    let fieldsTyped = 1;
+    let pedidoXEstoque = Number(inputQtyProduct.value) > quantityProductsEstoque;
+
+    fields.forEach((e) => {
+        if(e.value == '') {
+            fieldsTyped = 0;
+        }
+    })
+
+    if(fieldsTyped === 0) alert("Todos os campos precisam ser digitados!");
+    else if (pedidoXEstoque) alert("Não há esta quantidade de produto no estoque!");
     else {
-
         createInfo();
-
         resetFields();
     }
 }
@@ -52,15 +60,23 @@ function changeTotalOrder(value) {
     totalOrderResult.textContent = valueFormated;
 }
 
-function createSpan(value, label, code) {
-    const span = document.createElement('span');
-    span.textContent = value;
+function createTableRow() {
+    const tr = document.createElement('tr');
+    return tr;
+}
 
-    label.appendChild(span);
+function createTableData(value, parent, nameClass, secondClass) {
+    const td = document.createElement('td');
+    td.textContent = value;
 
-    span.classList.add(`code-${code}`);
+    if(nameClass !== undefined) {
+        td.classList.add(`${nameClass}`)
+    } else if(nameClass !== undefined && secondClass !== undefined) {
+        td.classList.add(`${nameClass}`);
+        td.classList.add(`${secondClass}`);
+    }
 
-
+    parent.appendChild(td);
 }
 
 function resetFields() {
@@ -69,12 +85,7 @@ function resetFields() {
     })
 }
 
-const items = document.querySelector('.items');
-const descriptions = document.querySelector('.descriptions');
-const prices = document.querySelector('.prices');
-const quantities = document.querySelector('.quantities');
-const subTotalBoard = document.querySelector('.subtotal');
-let controller = 1;
+const tbody = document.querySelector('.table-body');
 
 function createInfo() {
     const code = inputCodeProduct.value;
@@ -97,17 +108,19 @@ function createInfo() {
             } else {
                 ordersActive.push(item);
 
-                createSpan(price, prices, item);
-                createSpan(item, items, item);
-                createSpan(description, descriptions, item);
-                createSpan(quantity, quantities, item);
-                createDiv(subTotalFormatado, subTotalBoard, item);
+                const tableRow = createTableRow();
+                createTableData(item, tableRow, 'item-code-product');
+                createTableData(description, tableRow);
+                createTableData(price, tableRow, 'value');
+                createTableData(quantity, tableRow, 'quantity-product');
+                createTableData(subTotalFormatado, tableRow, 'subtotal-result');
+                tableRow.appendChild(createDeleteButton());
+                
+                tbody.appendChild(tableRow);
 
                 changeTotalOrder(subTotal);
 
                 const deleteBtnProduct = document.querySelectorAll('.material-symbols-outlined-delete');
-
-                controller++;
 
                 deleteBtnProduct.forEach((e) => {
                     e.addEventListener('click', function() {
@@ -121,51 +134,42 @@ function createInfo() {
     })
 }
 
-function createDiv(value, label, code) {
-    const div = document.createElement('div');
-    div.classList.add('subtotal-order');
-    const span = document.createElement('span');
-    span.textContent = value;
-    
-    const icon = document.createElement('span');
-    icon.textContent = 'delete';
-    icon.classList.add('material-symbols-outlined-delete');
-    
-    div.appendChild(span);
-    
-    icon.classList.add(`code-${code}`);
-    div.classList.add(`code-${code}`);
-    div.appendChild(icon);
-    label.appendChild(div);
-
+function createDeleteButton() {
+    const btn = document.createElement('span');
+    btn.textContent = 'delete';
+    btn.classList.add('material-symbols-outlined-delete');
+    return btn
 }
 
 function formatPrices(value) {
     return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
 };
 
-function Order(item) {
-    this.item = item;
+function deleteProduct(e) {
+    const row = e.parentNode;
+    let priceToRemove = row.querySelector('.subtotal-result').textContent;
+    const quantityToRemove = row.querySelector('.quantity-product').textContent;
+    const itemCodeToRemove = row.querySelector('.item-code-product').textContent;
+
+    priceToRemove = priceToRemove.replace(/[^0-9]/g,'');
+    const priceToRemoveFormated = priceToRemove.substr(0, priceToRemove.length -2) + '.' + priceToRemove.substr(priceToRemove.length -2, 2);
+    
+    changeTotalOrder(- Number(priceToRemoveFormated));
+    restoreStock(itemCodeToRemove, quantityToRemove);
+
+    const index = ordersActive.indexOf(Number(itemCodeToRemove));
+    ordersActive.splice(index, 1);
+
+    row.remove();
+
 }
 
-function deleteProduct(e) {
-    const elemento = e;
-    const classes = elemento.classList;
-    classes.forEach((classe) => {
-        
-        const elementos = document.querySelectorAll(`.${classe}`);
-        console.log(elementos);
-
-        elementos.forEach((e) => {
-            e.remove();
-        })
-        
-        if(ordersActive.indexOf(classe) !== -1) {
-            ordersActive.splice(ordersActive.indexOf(classe), 1);
+function restoreStock(code, quantity) {
+    produtos.forEach((produto) => {
+        if(produto.codProduto == code) {
+            produto.qtdEstoqueProd += Number(quantity);
         }
     })
-
-    
 }
 
 export { searchClient, searchProduct, enterProduct, deleteProduct };

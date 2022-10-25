@@ -13,10 +13,12 @@
 @20..48,100..700,0..1,-50..200" />
     <link rel="stylesheet" href="https://fonts.sandbox.google.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD
 @48,400,0,0" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 </head>
 
 <body>
+    <img src="../img/main-bg.svg" alt="A cloudy sky with different tons of blue" class="background" src="../panel/img/secondary-bg.svg">
     <header>
         <nav>
             <ul>
@@ -83,7 +85,7 @@
                 <label for="clients-code">Código do Cliente</label>
                 <input type="text" name="clients-code" id="clients-code" class="input field clients-code-order">
                 <label for="clients-name">Cliente</label>
-                <input type="text" name="clients-name" id="clients-name" class="input field clients-name-order">
+                <input type="text" name="clients-name" id="clients-name" disabled class="input field clients-name-order">
             </form>
             <div class="find-product-container">
                 <h2 class="subtitle">Localizar produto</h2>
@@ -97,23 +99,20 @@
             </div>
             <div class="order-list-products">
                 <h2 class="subtitle">Itens do Pedido</h2>
-                <div class="options-products-order">
-                    <div class="items codProduto result">
-                        <h3>Item</h3>
-                    </div>
-                    <div class="descriptions descProduto result">
-                        <h3>Descrição</h3>
-                    </div>
-                    <div class="prices precoProduto result">
-                        <h3>Preço</h3>
-                    </div>
-                    <div class="quantities qtdEstoqueProd result">
-                        <h3>Qtd</h3>
-                    </div>
-                    <div class="subtotal result">
-                        <h3>Sub Total</h3>
-                    </div>
-                </div>
+                <table>
+                    <thead>
+                        <th class="items">Item</th>
+                        <th class="descriptions">Descrição</th>
+                        <th class="prices">Preço</th>
+                        <th class="quantities">Qtd</th>
+                        <th class="subtotal">Sub Total</th>
+                        <th class="delete-column"></th>
+                    </thead>
+                    <tbody class="table-body">
+                        
+                    </tbody>
+                </table>
+            </div>
             </div>
 
             <div class="total-order">

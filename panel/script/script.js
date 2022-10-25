@@ -125,3 +125,13 @@ deleteBtnProduct.forEach((e) => {
         console.log('oi');
     });
 })
+
+const mainSection = document.querySelector('.background');
+
+setTimeout(() => {
+    
+    // mainSection.setAttribute('src', '../panel/img/secondary-bg.svg');
+    setTimeout(() => {
+    }, 1000);
+}, 1000);
+
