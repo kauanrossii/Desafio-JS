@@ -18,7 +18,7 @@ document.querySelector('#btn').addEventListener('click', function (e) {
         const userDigitado = document.querySelector('#name').value;
     
         for(let i of data.users) {
-            if(i.user == userDigitado && i.pws == pswdDigitada) {
+            if(i.user === userDigitado && i.pws === pswdDigitada) {
                 document.querySelector('#form').submit();
                 return
             }

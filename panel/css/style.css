@@ -21,10 +21,8 @@ main {
     width: 100%;
     display: flex;
     justify-content: center;
-    /* background-image: url(/desafio-js/img/main-bg.svg); */
     background-size: cover;
     background-position: center;
-    transition: all 1s ease-in-out;
     position: relative;
     overflow: hidden;
 }
@@ -149,6 +147,7 @@ section {
     margin-bottom: 3px;
     font-size: 18px;
     font-weight: bold;
+    border-radius: 10px;
 }
 
 .row {
@@ -166,7 +165,7 @@ section {
 }
 
 .nav-btn {
-    background-color: rgb(120, 55, 182);
+    background-color: #1e3266;
     border: none;
     border-radius: 5px;
     color: #fff;
@@ -187,7 +186,7 @@ section {
 }
 
 .new-btn {
-    background-color: #1E88E5;
+    background-color: #356cb1;
 }
 
 .orders-container {
@@ -284,6 +283,7 @@ th {
     width: 35%;
     font-size: 19px;
     font-weight:600;
+    border-radius: 10px;
 }
 
 .active {
@@ -293,11 +293,7 @@ th {
 .field {
     display: flex;
     flex-direction: column;
-}
-
-.result {
-    display: flex;
-    flex-direction: column;
+    border-radius: 10px;
 }
 
 .total-order {
@@ -328,4 +324,8 @@ th {
     direction: ltr;
     /* -webkit-font-feature-settings: 'liga'; */
     -webkit-font-smoothing: antialiased;
+}
+
+.monetary-value::before {
+    content: 'R$ ';
 }

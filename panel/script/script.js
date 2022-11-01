@@ -1,6 +1,6 @@
 import { changeClient, resetClient, newClient, saveClient } from "./clientes.js";
 import { changeProduct, resetProduct, newProduct, saveProduct} from "./produtos.js"
-import { searchClient, searchProduct, enterProduct, deleteProduct } from "./pedidos.js";
+import { searchClient, searchProduct, enterProduct } from "./pedidus.js";
 
 const items = document.querySelectorAll('.item');
 const closeBtns = document.querySelectorAll('.close-btn');
@@ -20,19 +20,11 @@ items.forEach(function (e) {
 
         closeSection();
 
-        if (e.classList.contains('clients')) {
-            openSection('clients');
-            // resetFieldsClients();
-        }
-        if (e.classList.contains('products')) {
-            openSection('products');
-            // resetFieldsProducts();
-        }
+        if (e.classList.contains('clients')) openSection('clients');
 
-        if (e.classList.contains('orders')) {
-            openSection('orders');
-            // resetAllFields();
-        }
+        if (e.classList.contains('products')) openSection('products');
+
+        if (e.classList.contains('orders')) openSection('orders');
 
     })
 })
@@ -61,8 +53,6 @@ closeBtns.forEach(function (e) {
     })
 })
 
-// console.log(navBtns);
-
 navBtns.forEach(function (e) {
     e.addEventListener('click', () => {
         
@@ -83,9 +73,12 @@ changeBtns.forEach(function(e) {
             pressedNewClient = 1;
         }
 
-        if(e.classList.contains('save-client') && pressedNewClient == 1) {
-            saveClient();
-            pressedNewClient = 0;
+        if(e.classList.contains('save-client')) {
+            if(pressedNewClient == 0) alert("Pressione NOVO para adicionar um registro!");
+            else {
+                saveClient();
+                pressedNewClient = 0;
+            }
         }
 
         if(e.classList.contains('new-product')) {
@@ -94,8 +87,11 @@ changeBtns.forEach(function(e) {
         }
 
         if(e.classList.contains('save-product')) {
-            saveProduct();
-            pressedNewProduct = 0;
+            if(pressedNewProduct == 0) alert("Pressione NOVO para adicionar um registro!");
+            else{
+                saveProduct();
+                pressedNewProduct = 0;
+            }
         }
     })
 })
@@ -115,13 +111,4 @@ inputCodeProduct.addEventListener('focusout', function () {
 btnEnterProduct.addEventListener('click', () => {
     enterProduct()
 
-})
-
-
-const deleteBtnProduct = document.querySelectorAll('.material-symbols-outlined-delete');
-
-deleteBtnProduct.forEach((e) => {
-    e.addEventListener('click', function(e) {
-        console.log('oi');
-    });
 })
