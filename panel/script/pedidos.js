@@ -1,165 +1,112 @@
 import { clientes } from "./clientes.js";
 import { produtos } from "./produtos.js";
 
+const inputNameCliente  = document.querySelector('.clients-name-order');
+const fieldsOrderScreen = document.querySelectorAll('.field');
+let currentProductQttyTyped   = 0;
+let currentProductPrice       = 0;
+let currentProductQtty        = 0;
+let currentProductItem        = 0;
+let currentProductDescription = "";
+let totalOrderResult          = 0;
+let infosCurrentProduct       = [];
+let currentProductsEntered    = [];
 
-const inputNameClient = document.querySelector('.clients-name-order');
-const inputDescriptionProduct = document.querySelector('.description');
-const inputPriceProduct = document.querySelector('.price');
-const inputQtyProduct = document.querySelector('.quantity');
-const inputCodeProduct = document.querySelector('.code');
-const totalOrderResult = document.querySelector('.total-order-result');
-let totalOrder = 0;
-let ordersActive = [];
-
-const fields = document.querySelectorAll('.field');
-
-function searchClient(code) { // Search the client code typed and show result on display
-    clientes.forEach((cliente) => {
-        if (cliente.codCliente == code) {
-            inputNameClient.value = cliente.nomeCliente;
-        }
-    })
-}
-
-let quantityProductsEstoque = 0;
-
-function searchProduct(code) { // Search the product code typed and show result on display
-
-
-    produtos.forEach((produto) => {
-        if (produto.codProduto == code) {
-            inputDescriptionProduct.value = produto.descProduto;
-            inputPriceProduct.value = produto.precoProduto;
-            quantityProductsEstoque = produto.qtdEstoqueProd;
-        }
-    })
-}
-
-function enterProduct() { // Checks all validations
-
-    let fieldsTyped = 1;
-    let pedidoXEstoque = Number(inputQtyProduct.value) > quantityProductsEstoque;
-
-    fields.forEach((e) => { // Checks that all fields have been entered
-        if(e.value == '') {
-            fieldsTyped = 0;
+function searchClient(code) {
+    let clientFound = false;
+    clientes.forEach(cliente => {
+        if(cliente.codCliente == code) {
+            inputNameCliente.value = cliente.nomeCliente;
+            clientFound = true;
         }
     })
 
-    if(fieldsTyped === 0) alert("Todos os campos precisam ser digitados!");
-    else if (pedidoXEstoque) alert("Não há esta quantidade de produto no estoque!");
-    else {
-        createInfo();
+    if(clientFound == false) { 
+        alert("Cliente não encontrado!");
         resetFields();
     }
 }
 
-function changeTotalOrder(value) { // Update the total order result 
-    totalOrder += value;
-    if(totalOrder < 0) totalOrder = 0;
-    let valueFormated = totalOrder;
-    totalOrderResult.textContent = valueFormated;
+function searchProduct(code) {
+    let productFound = false;
+    produtos.forEach(produto => {
+        if(produto.codProduto == code) {
+            currentProductPrice       = produto.precoProduto;
+            currentProductQtty        = produto.qtdEstoqueProd;
+            currentProductDescription = produto.descProduto;
+            currentProductItem        = produto.codProduto;
+            document.querySelector('.description').value = produto.descProduto;
+            document.querySelector('.price').value       = `R$ ${produto.precoProduto.toFixed(2)}`;
+            productFound = true;
+        }
+    })
+
+    if(productFound == false) {
+        alert("Produto não encontrado!");
+        resetFields();
+    }
 }
 
-function createTableRow() { // Create table row
-    const tr = document.createElement('tr');
-    return tr;
+function enterProduct() { // Check all the validations and 
+    currentProductQttyTyped = document.querySelector('.quantity').value;
+
+    let fieldsTyped = 1;
+
+    fieldsOrderScreen.forEach(field => {
+        if(field.value == '') fieldsTyped = 0;
+    })
+
+    if(fieldsTyped === 0) alert("Todos os campos precisam ser preenchidos!");
+    else if(currentProductQttyTyped > currentProductQtty) alert("Não há esta quantidade do produto em estoque!");
+    else if(currentProductsEntered.indexOf(currentProductItem) !== -1) {
+        alert("Produto já adicionado ao pedido!");
+        resetFields();
+    }
+    else {
+        document.querySelector('.table-body').appendChild(createRowProduct());
+        resetFields();
+    }
+    
 }
 
-function createTableData(value, nameClass) { // Create table datas and insert on current table row
-    const td = document.createElement('td');
-    td.textContent = value;
+function createRowProduct() {  // Create a new row of product on order board
+    const row            = document.createElement('tr');
+    infosCurrentProduct  = [];
+    createCellProduct(currentProductItem);
+    createCellProduct(currentProductDescription);
+    createCellProduct(currentProductPrice, 'monetary-value');
+    createCellProduct(currentProductQttyTyped);
+    createCellProduct(calcSubTotal(), 'monetary-value');
 
-    // if(nameClass !== undefined) { // For these table data that would have a class, it adds
-        td.classList.add(`${nameClass}`);
-    // }
-    currentTableRow.appendChild(td);
+    calcTotalOrder(calcSubTotal());
+    infosCurrentProduct.forEach(info => row.appendChild(info));
+    currentProductsEntered.push(currentProductItem);
+
+    return row;
+}
+
+function createCellProduct(value, className) {
+    const cell = document.createElement('td');
+    cell.textContent = value;
+
+    if(className !== undefined) {
+        cell.classList.add(className);
+        cell.textContent = parseFloat(value).toFixed(2);
+    }
+
+    infosCurrentProduct.push(cell);
+    return cell;
 }
 
 function resetFields() {
-    fields.forEach((e) => {
-        e.value = '';
-    })
+    fieldsOrderScreen.forEach(field => field.value = '');
 }
 
-const tbody = document.querySelector('.table-body');
-let currentTableRow;
-
-function createInfo() { // Add in oder board the product launched 
-    const code = inputCodeProduct.value;
-
-    produtos.forEach((product) => {
-
-        if (product.codProduto == code) { // Search the object product that have the same code typed
-
-            const price = product.precoProduto;
-            const item = product.codProduto;
-            const description = product.descProduto;
-            const quantity = inputQtyProduct.value;                       // Cactch all infos
-            const subTotal = Number(quantity) * product.precoProduto;
-
-            product.qtdEstoqueProd -= quantity;
-
-            if (ordersActive.indexOf(item) !== -1) {
-                alert("O item já foi adicionado ao pedido!");
-            } else {
-                ordersActive.push(item);
-
-                currentTableRow = createTableRow();
-                createTableData(item, 'item-code-product');
-                createTableData(description);                      // Create table row and table datas
-                createTableData(price, );
-                createTableData(quantity, 'quantity-product');
-                createTableData(subTotal, 'subtotal-result');
-                currentTableRow.appendChild(createDeleteButton());
-                
-                tbody.appendChild(currentTableRow);
-
-                changeTotalOrder(subTotal);
-
-                const deleteBtnProduct = document.querySelectorAll('.material-symbols-outlined-delete');
-
-                deleteBtnProduct.forEach((e) => {
-                    e.addEventListener('click', function() {
-                        deleteProduct(e);
-                    });
-                })
-
-            }
-
-        }
-    })
+function calcTotalOrder(value) {
+    totalOrderResult += value;
+    document.querySelector('.total-order-result').textContent = totalOrderResult.toFixed(2);
 }
 
-function createDeleteButton() { // Create delete button
-    const btn = document.createElement('span');
-    btn.textContent = 'delete';
-    btn.classList.add('material-symbols-outlined-delete');
-    return btn
-}
+const calcSubTotal = () => currentProductPrice * currentProductQttyTyped;
 
-function deleteProduct(e) { // Remove a product from the order
-    const row = e.parentNode;
-    let priceToRemove = row.querySelector('.subtotal-result').textContent;
-    const quantityToRemove = row.querySelector('.quantity-product').textContent;
-    const itemCodeToRemove = row.querySelector('.item-code-product').textContent;
-
-    changeTotalOrder(-priceToRemove);
-    restoreStock(itemCodeToRemove, quantityToRemove);
-
-    const index = ordersActive.indexOf(Number(itemCodeToRemove));
-    ordersActive.splice(index, 1); // Remove the product from the intern list of products
-
-    row.remove(); // Remove the product from the screen
-
-}
-
-function restoreStock(code, quantity) { // Restore the stock after remove a product
-    produtos.forEach((produto) => {
-        if(produto.codProduto == code) {
-            produto.qtdEstoqueProd += Number(quantity);
-        }
-    })
-}
-
-export { searchClient, searchProduct, enterProduct, deleteProduct };
+export { searchClient, searchProduct, enterProduct };

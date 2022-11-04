@@ -1,6 +1,6 @@
 import { changeClient, resetClient, newClient, saveClient } from "./clientes.js";
 import { changeProduct, resetProduct, newProduct, saveProduct} from "./produtos.js"
-import { searchClient, searchProduct, enterProduct } from "./pedidus.js";
+import { searchClient, searchProduct, enterProduct } from "./pedidos.js";
 
 const items = document.querySelectorAll('.item');
 const closeBtns = document.querySelectorAll('.close-btn');
@@ -110,5 +110,4 @@ inputCodeProduct.addEventListener('focusout', function () {
 
 btnEnterProduct.addEventListener('click', () => {
     enterProduct()
-
 })
